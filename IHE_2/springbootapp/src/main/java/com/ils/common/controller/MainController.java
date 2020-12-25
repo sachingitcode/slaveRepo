@@ -91,6 +91,20 @@ public class MainController {
         logger.info(" findByIdListing data: " + data.toString());
         return data.toString();
     }
+    
+    
+    @RequestMapping(value = "/getDetailsByDate", headers = "Accept=application/json")   // main list where we get headers and body by query 
+    public @ResponseBody
+    String findByIdListing(HttpServletRequest request , @RequestParam String startDate , String endDate   ) {
+        HttpSession session = request.getSession(false);
+        JSONObject data = commonJdbcUtil.getHeaderNValuesByDate(session.getAttribute("listPages").toString() , startDate , endDate  );  //requried
+        logger.info(" findByIdListing data: " + data.toString());
+        return data.toString();
+    }
+    
+    
+    
+    
 
 //    public String addEditcheckerValue(HttpServletRequest request, String id) {    // check for edit or add
 //        HttpSession session = request.getSession(false);

@@ -239,6 +239,31 @@ public class CommonJdbcUtil {
             return data;
         });
     }
+    
+    public JSONObject getHeaderNValuesByDate(String id ,String startDate, String endDate   ) {    //Impl
+        logger.info("getHeaderNValues: " + id);
+        JSONObject data = new JSONObject();
+        String sql = "SELECT\n"
+                + "LISTING.pk,\n"
+                + "LISTING.header,\n"
+                + "LISTING.`query`\n"
+                + "FROM\n"
+                + "LISTING\n"
+                + "WHERE LISTING.id= ?";
+        logger.info("{Query}: " + sql);
+        return jdbcTemplate.query(sql, new Object[]{id}, (ResultSet rs) -> {
+            while (rs.next()) {
+                data.put("header", new JSONArray(rs.getString("header")));      //match header and json names in listing query 
+                data.put("values", findByIdListing(rs.getString("query")));
+            }
+            return data;
+        });
+    }
+    
+    
+    
+    
+    
 
 //    @Cacheable(value = "getQueriesForView", key = "#id")
     public String getQueriesForView(String id, String tid) {
