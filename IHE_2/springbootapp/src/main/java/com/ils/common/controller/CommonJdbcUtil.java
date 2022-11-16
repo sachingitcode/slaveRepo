@@ -48,7 +48,7 @@ public class CommonJdbcUtil {
         logger.info("tid " + id);
         String QueryString = "INSERT INTO " + tableName + " (jdoc,r_id ,created_by,created_date) values(?,?,1,now())"; // sekect ka b dekho b bhai
         logger.info("OK saveDatasaveDataQuery" + QueryString);
-        logger.info("OK JsonNode data for saveDataUtil" + data.toString());
+        logger.info("OK JsonNode data  saveDataUtil" + data.toString());
         jdbcTemplate.update(
                 connection -> {
                     PreparedStatement ps = connection.prepareStatement(QueryString, new String[]{"id"});
@@ -83,7 +83,7 @@ public class CommonJdbcUtil {
         });
     }
 
-//    @Cacheable(value = "getNavDetail", key = "#id")
+//     @Cacheable(value = "getNavDetail", key = "#id")
     public String[] getNavDetail(String id) {
         logger.info("id for getNAvdetails: " + id);
         return jdbcTemplate.query("SELECT id, path, previous, next FROM PAGES WHERE id=?", new Object[]{id}, (ResultSet rs) -> {
